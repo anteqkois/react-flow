@@ -1,13 +1,11 @@
 import { useCallback } from "react";
 import { Handle, Node, NodeProps, Position, useReactFlow } from "reactflow";
 import { data } from "../Final/data";
-import { useCondition } from "./useCondition";
 
 type Props = NodeProps & { data: (typeof data)[0] };
 
 export function ConditionNode({ data, xPos, yPos}: Props) {
   const { project } = useReactFlow();
-  const {nodes, setNodes} = useCondition()
 
   const onClickAdd = useCallback(() => {
     const newId = +nodes[nodes.length - 1].id + 1;

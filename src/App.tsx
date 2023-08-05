@@ -1,16 +1,16 @@
-import { ConditionsFlow } from './modules/Condition/Flow'
+import { Flow } from "./modules/AddButton/Flow";
 
 function App() {
-
   return (
     <>
       <div>
-      {/* <FirstFlow/> */}
-      {/* <WithPlugins/> */}
-      <ConditionsFlow/>
+        {/* <FirstFlow/> */}
+        {/* <WithPlugins/> */}
+        {/* <ConditionsFlow /> */}
+        <Flow/>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

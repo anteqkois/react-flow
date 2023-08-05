@@ -1,11 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import ReactFlow, {
   Background,
   BackgroundVariant,
   Connection,
   Controls,
   Edge,
-  Node,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
@@ -13,48 +12,20 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 
 import { ConditionNode } from "./ConditionNode";
-import { data } from "./data";
+import { useCondition } from "./useCondition";
 
 const rfStyle = {
   // backgroundColor: "#B8CEFF",
 };
-
-let triggerTimesTotal = 0;
-const initialNodes = data.map((condition, index): Node => {
-  triggerTimesTotal += condition.triggeredTimes;
-
-  return {
-    id: condition._id,
-    type: "condition",
-    position: {
-      x: 0,
-      y: index * 50 + index * 200 + triggerTimesTotal * 50, // bazując na ilości trigerów (w realu to będzie określane za pomocą tego jakie pola zawiera warunek)
-    },
-    data: condition,
-    deletable: false,
-    // draggable: false,
-  };
-});
-
-const initialEdges = data.map((condition, index): Edge => {
-  return {
-    id: `e_${condition._id}`,
-    source: data[index - 1]?._id,
-    target: condition._id,
-    // type: "straight",
-    animated: true,
-    // sourceHandle: `s_${condition._id}`,
-    // sourceHandle: `a`,
-  };
-});
-
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
 const nodeTypes = { condition: ConditionNode };
 
 export function ConditionsFlow() {
-  const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState<Edge[]>(initialEdges);
+  // const [nodes, setNodes] = useState(initialNodes);
+  // const [edges, setEdges] = useState<Edge[]>(initialEdges);
+  const {nodes, edges, setEdges, setNodes} = useCondition()
+  
 
   const onNodesChange = useCallback(
     // @ts-ignore
@@ -66,6 +37,7 @@ export function ConditionsFlow() {
     (changes: any) => setEdges((eds) => applyEdgeChanges(changes, eds)),
     [setEdges]
   );
+
   const onConnect = useCallback(
     (connection: Connection) => setEdges((eds: Edge[]) => addEdge(connection, eds)),
     [setEdges]
