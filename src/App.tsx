@@ -1,6 +1,4 @@
-import { COnditionsFlow } from './modules/Condition/Flow'
-import { FirstFlow } from './modules/firstFlow/Index'
-import { WithPlugins } from './modules/withPlugins/Index'
+import { ConditionsFlow } from './modules/Condition/Flow'
 
 function App() {
 
@@ -9,7 +7,7 @@ function App() {
       <div>
       {/* <FirstFlow/> */}
       {/* <WithPlugins/> */}
-      <COnditionsFlow/>
+      <ConditionsFlow/>
       </div>
     </>
   )

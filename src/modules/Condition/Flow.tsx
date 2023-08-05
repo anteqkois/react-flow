@@ -6,7 +6,6 @@ import ReactFlow, {
   Controls,
   Edge,
   Node,
-  Position,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
@@ -32,8 +31,20 @@ const initialNodes = data.map((condition, index): Node => {
       y: index * 50 + index * 200 + triggerTimesTotal * 50, // bazując na ilości trigerów (w realu to będzie określane za pomocą tego jakie pola zawiera warunek)
     },
     data: condition,
+    deletable: false,
     // draggable: false,
-    // deletable: false,
+  };
+});
+
+const initialEdges = data.map((condition, index): Edge => {
+  return {
+    id: `e_${condition._id}`,
+    source: data[index - 1]?._id,
+    target: condition._id,
+    // type: "straight",
+    animated: true,
+    // sourceHandle: `s_${condition._id}`,
+    // sourceHandle: `a`,
   };
 });
 
@@ -41,9 +52,9 @@ const initialNodes = data.map((condition, index): Node => {
 // you could also use useMemo inside the component
 const nodeTypes = { condition: ConditionNode };
 
-export function COnditionsFlow() {
+export function ConditionsFlow() {
   const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState<Edge[]>([]);
+  const [edges, setEdges] = useState<Edge[]>(initialEdges);
 
   const onNodesChange = useCallback(
     // @ts-ignore
